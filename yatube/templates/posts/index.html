@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{text}}
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">     
+  {% comment %} <h1>Последние обновления на сайте</h1> {% endcomment %}
+  
+  {% for post in posts %}
+  <article>
+  <ul>
+    <li>
+      Автор: {{ post.author.get_full_name }}
+    </li>
+    <li>
+      Дата публикации: {{ post.pub_date|date:"d E Y" }}
+    </li>
+  </ul>
+  <p>{{ post.text }}</p>    
+  <a href="{% url 'posts:group_posts' post.group.slug %}">все записи группы</a>
+  </article>
+  {% if not forloop.last %}<hr>{% endif %}
+{% endfor %}
+
+</div>
+
+{% endblock %}
